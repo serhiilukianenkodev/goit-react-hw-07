@@ -3,11 +3,11 @@ import { fetchContacts, addContact, deleteContact } from "./contactsOps";
 import { selectNameFilter } from "./filtersSlice";
 
 const handlePending = (state) => {
-  state.isLoading = true;
+  state.loading = true;
 };
 
 const handleRejected = (state, action) => {
-  state.isLoading = false;
+  state.loading = false;
   state.error = action.payload;
 };
 
@@ -47,8 +47,6 @@ const slice = createSlice({
   },
 });
 
-// export const { addContact, deleteContact } = slice.actions;
-
 export default slice.reducer;
 
 export const selectContacts = (state) => state.contacts.items;
@@ -57,11 +55,10 @@ export const selectError = (state) => state.contacts.error;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectNameFilter],
-  (contacts, filter) => {
-    return contacts.filter((contact) => {
+  (contacts, filter) =>
+    contacts.filter((contact) => {
       return contact.name
         .toLocaleLowerCase()
         .includes(filter.trim().toLocaleLowerCase());
-    });
-  }
+    })
 );
