@@ -4,7 +4,7 @@ import { useId } from "react";
 
 import css from "./ContactForm.module.css";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 
 const initialValues = {
   name: "",
@@ -28,7 +28,7 @@ const ContactForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    dispatch(addContact({ ...values, id: crypto.randomUUID() }));
+    dispatch(addContact(values));
     actions.resetForm();
   };
 
